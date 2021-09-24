@@ -1,0 +1,52 @@
+<div id="layoutAuthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-header"><h3 class="text-center font-weight-light my-4">Inicio de sesión</h3></div>
+              <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" formControlName="email" required>
+                    <label for="inputEmail">Correo electrónico</label>
+                    <!-- errors-->
+                    <p *ngIf="loginForm.get('email').touched && loginForm.get('email').pristine" class="error"><sup>*</sup>Ingrese el email.</p>
+                    <p *ngIf="loginForm.get('email').errors?.minlength" class="error"><sup>*</sup>El email debe tener mínimo 5 caracteres.</p>
+                    <p *ngIf="loginForm.get('email').errors?.maxlength" class="error"><sup>*</sup>El email debe tener máximo 50 caracteres.</p>
+                    <p *ngIf="loginForm.get('email').errors?.pattern" class="error"><sup>*</sup>Ingrese un email correcto.</p>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input class="form-control" id="inputPassword" type="password" placeholder="Password" formControlName="password" required>
+                    <label for="inputPassword">Contraseña</label>
+                    <!-- errors-->
+                    <p *ngIf="loginForm.get('password').touched && loginForm.get('password').pristine" class="error"><sup>*</sup>Ingrese la contraseña.</p>
+                    <p *ngIf="loginForm.get('password').errors?.minlength" class="error"><sup>*</sup>La contraseña debe tener mínimo 5 caracteres.</p>
+                    <p *ngIf="loginForm.get('password').errors?.maxlength" class="error"><sup>*</sup>La contraseña debe tener máximo 255 caracteres.</p>
+                  </div>
+                  <div class="alert alert-danger alert-dismissible fade show" style="margin-top: 20px;" role="alert" *ngIf="loginError">
+                    {{ loginErrorMessage }}
+                  </div>
+                  <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
+                    <a class="small" >Recuperar contraseña?</a>
+                    <button [disabled]="!loginForm.valid" class="btn btn-lg btn-block btn-primary mb-3">
+                      <div *ngIf="!preLoader">Ingresar</div>
+                      <div class="no-data text-center" *ngIf="preLoader">
+                        <img src="../../assets/img/preloader.gif" class="preloader" width="25" height="25" alt="preloader"/>
+                      </div>
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer text-center py-3">
+                <div class="small"><a [routerLink]="['/register']">Registrarse</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <app-footer></app-footer>
+</div>

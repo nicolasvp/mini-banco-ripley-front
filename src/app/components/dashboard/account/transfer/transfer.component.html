@@ -1,0 +1,86 @@
+<app-header></app-header>
+<div id="layoutSidenav">
+  <div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+          <div class="sb-sidenav-menu-heading">Acciones</div>
+          <a class="nav-link" [routerLink]="['/dashboard/home']">
+            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+            Inicio
+          </a>
+          <a class="nav-link" [routerLink]="['/dashboard/account/load-balance']">
+            <div class="sb-nav-link-icon"><i class="fas fa-arrow-circle-up"></i></div>
+            Cargar saldo
+          </a>
+          <a class="nav-link" [routerLink]="['/dashboard/account/withdrawals']">
+            <div class="sb-nav-link-icon"><i class="fas fa-arrow-circle-down"></i></div>
+            Retirar saldo
+          </a>
+          <a class="nav-link" [routerLink]="['/dashboard/account/transfer']">
+            <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
+            Transferir saldo
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid px-4">
+        <h1 class="mt-4">Transferir saldo</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Transfiera saldo de su cuenta a otra.</li>
+        </ol>
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Complete los campos necesarios
+          </div>
+          <div class="card-body">
+            <form [formGroup]="transferForm" (ngSubmit)="transferBalance()" novalidate>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <div class="form-floating mb-3 mb-md-0">
+                    <input class="form-control" id="rut" type="text" placeholder="12345678-9" formControlName="rut">
+                    <label for="rut">Rut destinatario</label>
+                    <!-- errors-->
+                    <p *ngIf="transferForm.get('rut').touched && transferForm.get('rut').pristine" class="error"><sup>*</sup>Ingrese un rut.</p>
+                    <p *ngIf="transferForm.get('rut').errors?.minLength" class="error"><sup>*</sup>El rut debe tener mínimo 9 caracteres.</p>
+                    <p *ngIf="transferForm.get('rut').errors?.maxLength" class="error"><sup>*</sup>El rut debe tener máximo 11 caracteres.</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating mb-3 mb-md-0">
+                    <input class="form-control" id="amount" type="number" placeholder="1000" formControlName="amount">
+                    <label for="amount">Cantidad</label>
+                    <!-- errors-->
+                    <p *ngIf="transferForm.get('amount').touched && transferForm.get('amount').pristine" class="error"><sup>*</sup>Ingrese un monto.</p>
+                    <p *ngIf="transferForm.get('amount').errors?.min" class="error"><sup>*</sup>El monto debe ser mínimo 1.</p>
+                    <p *ngIf="transferForm.get('amount').errors?.max" class="error"><sup>*</sup>El monto debe ser máximo 1000000.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  <div class="mt-4 mb-0">
+                    <button [disabled]="!transferForm.valid" class="btn btn-lg btn-block btn-primary mb-3">
+                      <div *ngIf="!preLoader">Transferir saldo</div>
+                      <div class="no-data text-center" *ngIf="preLoader">
+                        <img src="../../assets/img/preloader.gif" class="preloader" width="25" height="25" alt="preloader">
+                      </div>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-4"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <app-footer></app-footer>
+  </div>
+</div>

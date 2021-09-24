@@ -1,0 +1,73 @@
+<app-header></app-header>
+<div id="layoutSidenav">
+  <div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+      <div class="sb-sidenav-menu">
+        <div class="nav">
+          <div class="sb-sidenav-menu-heading">Acciones</div>
+          <a class="nav-link" [routerLink]="['/dashboard/home']">
+            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+            Inicio
+          </a>
+          <a class="nav-link" [routerLink]="['/dashboard/account/load-balance']">
+            <div class="sb-nav-link-icon"><i class="fas fa-arrow-circle-up"></i></div>
+            Cargar saldo
+          </a>
+          <a class="nav-link" [routerLink]="['/dashboard/account/withdrawals']">
+            <div class="sb-nav-link-icon"><i class="fas fa-arrow-circle-down"></i></div>
+            Retirar saldo
+          </a>
+          <a class="nav-link" [routerLink]="['/dashboard/account/transfer']">
+            <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
+            Transferir saldo
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid px-4">
+        <h1 class="mt-4">Inicio</h1>
+        <ol class="breadcrumb mb-4">
+          <li class="breadcrumb-item active">Listados de transferencias, cargas y retiros de saldo.</li>
+        </ol>
+        <div class="card mb-4">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Listado de movimientos de entrada
+          </div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Origen</th>
+                <th scope="col">Destino</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Monto</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let movement of movements">
+                <th>{{ movement._id }}</th>
+                <td>{{ movement.from }}</td>
+                <td>{{ movement.destiny }}</td>
+                <td>{{ movement.action }}</td>
+                <td>{{ movement.amount | number }}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCountries()">
+              </ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <app-footer></app-footer>
+  </div>
+</div>
