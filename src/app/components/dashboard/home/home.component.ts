@@ -111,8 +111,8 @@ export class HomeComponent implements OnInit {
 
     this.accountService.getMovements().subscribe(
       response => {
-        this.collectionSize = response.data.length;
-        response.data.map(movement => {
+        this.collectionSize = response.data.movements.length;
+        response.data.movements.map(movement => {
           if(movement.action == "LOAD") {
            movement.action = "Carga/Entrada";
           }
@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit {
             movement.action = "Retiro/Salida";
           }
         })
-        this.movements = response.data;
+        this.movements = response.data.movements;
       }
     )
   }
